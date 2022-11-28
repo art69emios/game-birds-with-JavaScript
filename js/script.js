@@ -8,6 +8,15 @@ let fg = new Image()
 let pipeBottom = new Image()
 let pipeUp = new Image()
 
+let popap = document.querySelector('#popap')
+let scoreInfo = document.querySelector('#score')
+let recordInfo = document.querySelector('#record')
+let restartBtn = document.querySelector('#restart-btn')
+
+restartBtn.addEventListener('click', function(){
+   location.reload()
+})
+
 bg.src = 'img/bg.png'
 bird.src = 'img/bird.png'
 fg.src = 'img/fg.png'
@@ -28,6 +37,15 @@ let xPos = 10
 let yPos = 150
 let grav = 1.5
 let score = 0
+let record = 0
+
+if(localStorage.getItem('record') > 0){
+   record = localStorage.getItem('record')
+}else{
+   record = 0
+}
+
+
 
 let pipe = []
 
@@ -65,15 +83,27 @@ function draw(){
       }
 
       if(yPos + bird.height >= canvas.height - fg.height || yPos  <= bg.height - canvas.height  || xPos + bird.width >= pipe[i].x && xPos + bird.height <= pipe[i].x + pipeUp.width && (yPos <= pipe[i].y + pipeUp.height || yPos + bird.height >= pipe[i].y + pipeUp.height + gap)){
-         location.reload()
-         audioLose.play()
 
+
+         popap.style.display = 'block'
+         scoreInfo.textContent = `SCORE: ${score}`
+         recordInfo.textContent = `RECORD: ${record}`
+
+         audioLose.play()
+         cancelAnimationFrame(anim)
+
+
+         
       }
 
       if(pipe[i].x == 5){
          audioScore.play()
-
          score++
+         if(score > localStorage.getItem('record')){
+            record = score
+            localStorage.setItem('record', record)
+         }
+
       }
   
    }
@@ -91,9 +121,13 @@ function draw(){
    context.fillStyle = '#000'
    context.font = '24px Verdana'
    context.fillText(`Score: ${score}`,10, canvas.height - fg.height / 2)
-   
 
-   requestAnimationFrame(draw )
+   context.fillStyle = '#000'
+   context.font = '24px Verdana'
+   context.fillText(`Record: ${record}`,160, canvas.height - fg.height / 2)
+
+   
+   let anim = requestAnimationFrame(draw )
 }
 
 pipeBottom.onload = draw()
