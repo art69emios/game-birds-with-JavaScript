@@ -124,7 +124,7 @@ function draw(){
 
    context.fillStyle = '#000'
    context.font = '24px Verdana'
-   context.fillText(`Record: ${record}`,160, canvas.height - fg.height / 2)
+   context.fillText(`Record: ${record}`,150, canvas.height - fg.height / 2)
 
    
    let anim = requestAnimationFrame(draw )

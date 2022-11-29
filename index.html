@@ -5,13 +5,22 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+   <link rel="stylesheet" href="style.css">
    <title>Flappy Bird!</title>
 </head>
 <body>
 
    <canvas id="canvas" width="288" height="512" ></canvas>
    
+<section id="popap" class="popap">
+   <div class="popap__contant">
+      <div class="popap__title">GAME OVER</div>
+      <div id="score" class="popap__score"></div>
+      <div id="record" class="popap__record"></div>
+      <div class="popap__btn"><button id="restart-btn">RESTART</button></div>
 
+   </div>
+</section>
    <script src="js/script.js"></script>
 </body>
 </html>
